@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAII,oBAJgB,CAElB,eAAe,CAEb,YAAY,CAAC;EACX,MAAM,EAAE,wBAAwB;EAChC,MAAM,EAAE,KAAK;EACb,KAAK,EAAE,KAAK;EACZ,aAAa,EAAE,GAAG;EAElB,aAAa,EAAE,CAAC;CAEjB;;AAZL,AAcI,oBAdgB,CAElB,eAAe,CAYb,aAAa,CAAC;EACZ,gBAAgB,EAAE,SAAS;EAC3B,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,KAAK;EACZ,aAAa,EAAE,GAAG;EAElB,aAAa,EAAE,CAAC;CACjB",
+    "sources": [
+        "terminal.scss"
+    ],
+    "names": [],
+    "file": "terminal.css"
+}
