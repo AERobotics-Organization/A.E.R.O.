@@ -1,9 +1,12 @@
+
 .terminal__container {
 
   .terminal__form {
 
     .form__input {
-      border: 1px solid cornflowerblue;
+      color: limegreen;
+      background-color: black;
+      border: 1px solid #065e31;
       height: 400px;
       width: 300px;
       border-radius: 4px;
@@ -13,7 +16,8 @@
     }
 
     .form__button {
-      background-color: orangered;
+      color: black;
+      background-color: #065e31;
       height: 48px;
       width: 200px;
       border-radius: 4px;

@@ -1,0 +1,23 @@
+{
+  "name": "a.e.r.o",
+  "version": "1.0.0",
+  "description": "Robotic web interface built in React.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AERobotics-Organization/A.E.R.O..git"
+  },
+  "author": "Moth-Man",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AERobotics-Organization/A.E.R.O./issues"
+  },
+  "homepage": "https://github.com/AERobotics-Organization/A.E.R.O.#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
+  }
+}
