@@ -4,12 +4,13 @@ const bodyParser = require('body-parser')
 const fs = require('fs')
 const shortid = require('shortid')
 let data = require('../data/fileData.json')
+const spawn = require('child_process').spawn
 
 codeRouter.use(bodyParser.json())
 codeRouter.use(bodyParser.urlencoded({ extended: false }))
 
 codeRouter.get('/codeAPI', (req, res) => {
-  res.json(code)
+  res.json(data)
 })
 
 codeRouter
@@ -46,6 +47,25 @@ codeRouter
     fs.writeFileSync('data/fileData.json', JSON.stringify(data), (err) => {
       if (err) throw err
     })
+
+    ///////////////////////////////////////////
+    let nodeSpawn = spawn('node', [fileName])
+    nodeSpawn.stdout.on('data', (data) => {
+      console.log(data.toString())
+    })
+    nodeSpawn.stderr.on('data', (data) => {
+      console.log(data.toString())
+    })
+    // setTimeout(10000, () => {
+    //   nodeSpawn.on('exit', (code) => {
+    //     console.log(`Child exited with coe ${code}`)
+    //   })
+    // })
+    nodeSpawn.on('exit', (code) => {
+      console.log(`Child exited with coe ${code}`)
+    })
   })
+
+
 
 module.exports = codeRouter
