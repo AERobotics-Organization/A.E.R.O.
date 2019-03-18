@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './terminal.css'
+import codeMirror from 'codemirror'
 
 const codeURL = "http://localhost:8088/codeAPI"
 
@@ -10,34 +11,44 @@ class Terminal extends Component {
     this.state = {
       currentCode: {}
     }
-    this.textInput = React.createRef()
+    this.fileInput = React.createRef()
+    this.codeInput = React.createRef()
   }
 
-  postCode = (code) => {
+  postCode = (file, code) => {
+    if (file === '') {
+      file = "index.js"
+    }
     axios
       .post(codeURL, {
+        currentFile: file,
         currentCode: code
       })
       .then(response => {
         console.log(response)
-        const currentCode = response.data
+        const { currentFile, currentCode } = response.data
         this.setState({
+          currentFile,
           currentCode
         })
       })
       .catch((err) => {
         console.log(err)
       })
-    // .get(codeURL)
-    // .then(({ data }) => {
-    //   console.log(data)
-    // })
+
+  }
+
+  createTextEditor = () => {
+    codeMirror.fromTextArea(document.querySelector('form__input'), {
+      lineNumbers: true,
+      mode: "htmlmixed"
+    })
   }
 
   compileJ5 = () => {
     console.log("Compiling johnny5...")
-    console.log(this.textInput.value)
-    this.postCode(this.textInput.value)
+    console.log(this.codeInput.value)
+    this.postCode(this.fileInput.value, this.codeInput.value)
 
   }
 
@@ -46,7 +57,8 @@ class Terminal extends Component {
     return (
       <div className="terminal__container">
         <form className="terminal__form">
-          <textarea className="form__input" ref={el => this.textInput = el}></textarea>
+          <input className="fileName__text" ref={val => this.fileInput = val} type="text" name="inputBox" placeholder="File Name"></input>
+          <textarea className="form__input" ref={el => this.codeInput = el}></textarea>
           <button className="form__button" type="button" onClick={() => this.compileJ5()}>COMPILE</button>
         </form>
       </div>

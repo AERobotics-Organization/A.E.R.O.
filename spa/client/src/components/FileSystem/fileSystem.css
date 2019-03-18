@@ -1,0 +1,22 @@
+.fileSystem__container {
+  height: 100%;
+  width: 100px;
+  color: yellow;
+  border: 1px solid yellow;
+  border-radius: 4px;
+  text-indent: 10px;
+  margin: 45px 0px 0px 25px;
+  float: left;
+}
+
+.fileSystem__container .addFile__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: yellow;
+  height: 25px;
+  width: 25px;
+  border-radius: 4px;
+  padding: 5px;
+}
+/*# sourceMappingURL=fileSystem.css.map */
