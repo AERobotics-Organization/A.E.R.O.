@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const fs = require('fs')
 const shortid = require('shortid')
 let data = require('../data/fileData.json')
-const spawn = require('child_process').spawn
+const { spawn } = require('child_process')
 
 codeRouter.use(bodyParser.json())
 codeRouter.use(bodyParser.urlencoded({ extended: false }))
@@ -49,7 +49,11 @@ codeRouter
     })
 
     ///////////////////////////////////////////
-    let nodeSpawn = spawn('node', [fileName])
+    let nodeSpawn = spawn('node', [fileName], {
+      detached: true,
+      shell: true
+    })
+
     nodeSpawn.stdout.on('data', (data) => {
       console.log(data.toString())
     })
@@ -62,7 +66,7 @@ codeRouter
     //   })
     // })
     nodeSpawn.on('exit', (code) => {
-      console.log(`Child exited with coe ${code}`)
+      console.log(`Child exited with code ${code}`)
     })
   })
 
