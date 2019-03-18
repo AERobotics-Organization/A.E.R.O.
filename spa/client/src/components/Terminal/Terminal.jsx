@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import './terminal.css'
 import codeMirror from 'codemirror'
+import $ from 'jquery'
+
 
 const codeURL = "http://localhost:8088/codeAPI"
 
@@ -52,6 +54,11 @@ class Terminal extends Component {
 
   }
 
+  componentDidMount() {
+
+  }
+
+
   render() {
     console.log(this.state)
     return (
@@ -59,6 +66,7 @@ class Terminal extends Component {
         <form className="terminal__form">
           <input className="fileName__text" ref={val => this.fileInput = val} type="text" name="inputBox" placeholder="File Name"></input>
           <textarea className="form__input" ref={el => this.codeInput = el}></textarea>
+
           <button className="form__button" type="button" onClick={() => this.compileJ5()}>COMPILE</button>
         </form>
       </div>
