@@ -1,4 +1,8 @@
+.file__container {
+  border-bottom: 1px solid yellow;
+}
+
 .file__container .file__name {
-  color: yellow;
+  color: yellowgreen;
 }
 /*# sourceMappingURL=file.css.map */
