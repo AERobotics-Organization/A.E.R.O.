@@ -5,7 +5,7 @@ import FileSystem from './components/FileSystem/FileSystem'
 import Terminal from './components/Terminal/Terminal'
 import Console from './components/Console/Console'
 
-const codeURL = "https://localhost:8088/codeAPI"
+const codeURL = "http://localhost:8088/codeAPI"
 
 class App extends Component {
   state = {
@@ -19,36 +19,45 @@ class App extends Component {
     axios
       .get(codeURL)
       .then(({ data }) => {
+        console.log(data)
         this.setState({
           fileList: data
         })
       })
   }
 
-  componentDidMount() {
+  postCode = (file, code) => {
+    if (file === '') {
+      file = "index.js"
+    }
+    axios
+      .post(codeURL, {
+        currentFile: file,
+        currentCode: code
+      })
+      .then(response => {
+        console.log(response)
+        const { currentFile, currentCode } = response.data
+        this.setState({
+          currentFile,
+          currentCode
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
+  }
+
+  componentDidMount() {
+    this.retrieveFiles()
   }
 
   componentDidUpdate() {
 
   }
 
-  // postCode = (code) => {
-  //   axios
-  //     .post(codeURL, {
-  //       currentCode: code
-  //     })
-  //     .then(response => {
-  //       console.log(response)
-  //       const currentCode = response.data
-  //       this.setState({
-  //         currentCode
-  //       })
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // }
+
 
   render() {
     return (
