@@ -15,23 +15,7 @@ codeRouter.get('/codeAPI', (req, res) => {
 
 codeRouter
   .post('/codeAPI', (req, res) => {
-    // let date = new Date()
-    // //date = date.toDateString('en-US')
-    // console.log(date)
-    // let fileName = `johnnyFiles/${date}Johnny5.js`
-    //console.log(req.body.currentCode)
 
-    // fs.writeFile(fileName, req.body.currentCode, (err) => {
-    //   if (err) throw err
-    // })
-
-    // fs.appendFile(fileName, '\n\nmodule.exports = board', (err) => {
-    //   if (err) throw err
-    // })
-    //const executable = require(`../johnnyFiles/${fileName}`)
-    //console.log(executable, "EXECUTE")
-    // code.push(req.body)
-    // res.send(code)
     console.log(req.body)
     let fileName = `johnnyFiles/${req.body.currentFile}`
     fs.writeFileSync(fileName, req.body.currentCode, (err) => {
@@ -48,29 +32,23 @@ codeRouter
       if (err) throw err
     })
 
+    res.json(data)
     ///////////////////////////////////////////
     let nodeSpawn = spawn('node', [fileName], {
       //detached: true,
       shell: true
     })
-
     nodeSpawn.stdout.on('data', (data) => {
       console.log("OUTPUT", data.toString())
     })
     nodeSpawn.stderr.on('data', (data) => {
       console.log("ERRORS", data.toString())
     })
-    // setTimeout(10000, () => {
-    //   nodeSpawn.on('exit', (code) => {
-    //     console.log(`Child exited with coe ${code}`)
-    //   })
-    // })
     nodeSpawn.on('exit', (code) => {
       console.log(`Child exited with code ${code}`)
       nodeSpawn.kill('SIGINT')
     })
 
-    res.json(data)
   })
 
 

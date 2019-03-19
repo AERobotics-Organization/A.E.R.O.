@@ -7,13 +7,11 @@ class FileSystem extends Component {
   render() {
 
     let fileList = this.props.fileList.map(file => {
-      console.log({ ...file })
       return (
         <File {...file} />
       )
     })
 
-    console.log(this.props.fileList)
 
     return (
       <div className="fileSystem__container">

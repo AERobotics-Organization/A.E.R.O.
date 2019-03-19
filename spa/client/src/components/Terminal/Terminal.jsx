@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import './terminal.css'
 
-
-const codeURL = "http://localhost:8088/codeAPI"
 
 class Terminal extends Component {
   constructor(props) {
@@ -15,33 +12,8 @@ class Terminal extends Component {
     this.codeInput = React.createRef()
   }
 
-  // postCode = (file, code) => {
-  //   if (file === '') {
-  //     file = "index.js"
-  //   }
-  //   axios
-  //     .post(codeURL, {
-  //       currentFile: file,
-  //       currentCode: code
-  //     })
-  //     .then(response => {
-  //       console.log(response)
-  //       const { currentFile, currentCode } = response.data
-  //       this.setState({
-  //         currentFile,
-  //         currentCode
-  //       })
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-
-  // }
-
-
   compileJ5 = () => {
     console.log("Compiling johnny5...")
-    console.log(this.codeInput.value)
     this.props.postCode(this.fileInput.value, this.codeInput.value)
 
   }
@@ -52,7 +24,6 @@ class Terminal extends Component {
 
 
   render() {
-    console.log(this.state)
     return (
       <div className="terminal__container">
         <form className="terminal__form">

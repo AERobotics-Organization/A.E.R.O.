@@ -4,7 +4,10 @@ import './App.css';
 import FileSystem from './components/FileSystem/FileSystem'
 import Terminal from './components/Terminal/Terminal'
 import Console from './components/Console/Console'
+import Webcam from './components/Webcam/Webcam'
+import io from 'socket.io-client'
 
+const socket = io.connect('http://localhost:8088')
 const codeURL = "http://localhost:8088/codeAPI"
 
 class App extends Component {
@@ -12,14 +15,14 @@ class App extends Component {
     currentFileName: '',
     currentCode: {},
     currentFileID: {},
-    fileList: []
+    fileList: [],
+    feed: ``
   }
 
   retrieveFiles = () => {
     axios
       .get(codeURL)
       .then(({ data }) => {
-        console.log(data)
         this.setState({
           fileList: data
         })
@@ -36,7 +39,6 @@ class App extends Component {
         currentCode: code
       })
       .then(response => {
-        console.log(response)
         const { currentFile, currentCode } = response.data
         this.setState({
           currentFile,
@@ -49,6 +51,7 @@ class App extends Component {
 
   }
 
+
   componentDidMount() {
     this.retrieveFiles()
   }
@@ -60,12 +63,23 @@ class App extends Component {
 
 
   render() {
+
+    socket.on('image', (image) => {
+      // const imageElm = document.querySelector('.image')
+      // imageElm.src = `data:image/jpeg;base64,${image}`
+      // console.log("IMAGE::: ", imageElm.src)
+      this.setState({
+        feed: `data:image/jpeg;base64,${image}`
+      })
+    })//
+
     return (
       <div className="App">
         <FileSystem fileList={this.state.fileList} />
         <Terminal postCode={this.postCode} />
         <Console />
-      </div>
+        <Webcam feed={this.state.feed} />
+      </div >
     );
   }
 }

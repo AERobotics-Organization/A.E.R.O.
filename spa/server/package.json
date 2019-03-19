@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "A.E.R.O. server",
+  "main": "j5server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "codemirror": "^5.44.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "johnny-five": "^1.0.0",
+    "localtunnel": "^1.9.1",
+    "opencv4nodejs": "^4.14.1",
+    "shortid": "^2.2.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
