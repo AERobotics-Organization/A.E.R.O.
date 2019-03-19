@@ -50,15 +50,15 @@ codeRouter
 
     ///////////////////////////////////////////
     let nodeSpawn = spawn('node', [fileName], {
-      detached: true,
+      //detached: true,
       shell: true
     })
 
     nodeSpawn.stdout.on('data', (data) => {
-      console.log(data.toString())
+      console.log("OUTPUT", data.toString())
     })
     nodeSpawn.stderr.on('data', (data) => {
-      console.log(data.toString())
+      console.log("ERRORS", data.toString())
     })
     // setTimeout(10000, () => {
     //   nodeSpawn.on('exit', (code) => {
@@ -67,7 +67,10 @@ codeRouter
     // })
     nodeSpawn.on('exit', (code) => {
       console.log(`Child exited with code ${code}`)
+      nodeSpawn.kill('SIGINT')
     })
+
+    res.json(data)
   })
 
 

@@ -16,34 +16,34 @@ class Terminal extends Component {
     this.codeInput = React.createRef()
   }
 
-  postCode = (file, code) => {
-    if (file === '') {
-      file = "index.js"
-    }
-    axios
-      .post(codeURL, {
-        currentFile: file,
-        currentCode: code
-      })
-      .then(response => {
-        console.log(response)
-        const { currentFile, currentCode } = response.data
-        this.setState({
-          currentFile,
-          currentCode
-        })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+  // postCode = (file, code) => {
+  //   if (file === '') {
+  //     file = "index.js"
+  //   }
+  //   axios
+  //     .post(codeURL, {
+  //       currentFile: file,
+  //       currentCode: code
+  //     })
+  //     .then(response => {
+  //       console.log(response)
+  //       const { currentFile, currentCode } = response.data
+  //       this.setState({
+  //         currentFile,
+  //         currentCode
+  //       })
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
 
-  }
+  // }
 
 
   compileJ5 = () => {
     console.log("Compiling johnny5...")
     console.log(this.codeInput.value)
-    this.postCode(this.fileInput.value, this.codeInput.value)
+    this.props.postCode(this.fileInput.value, this.codeInput.value)
 
   }
 
