@@ -10,7 +10,7 @@ class Webcam extends Component {
 
     return (
       <div className="webcam__container">
-        <img className="webcam__feed" alt="webcamFeed" src={this.props.feed}></img>
+        <img className="webcam__feed" alt="" src={this.props.feed}></img>
       </div>
     )
   }

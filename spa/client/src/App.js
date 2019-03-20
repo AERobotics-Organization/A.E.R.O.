@@ -54,6 +54,11 @@ class App extends Component {
 
   componentDidMount() {
     this.retrieveFiles()
+    socket.on('image', (image) => {
+      this.setState({
+        feed: `data:image/jpeg;base64,${image}`
+      })
+    })
   }
 
   componentDidUpdate() {
@@ -64,21 +69,18 @@ class App extends Component {
 
   render() {
 
-    socket.on('image', (image) => {
-      // const imageElm = document.querySelector('.image')
-      // imageElm.src = `data:image/jpeg;base64,${image}`
-      // console.log("IMAGE::: ", imageElm.src)
-      this.setState({
-        feed: `data:image/jpeg;base64,${image}`
-      })
-    })//
+    // socket.on('image', (image) => {
+    //   this.setState({
+    //     feed: `data:image/jpeg;base64,${image}`
+    //   })
+    // })
 
     return (
       <div className="App">
         <FileSystem fileList={this.state.fileList} />
+        <Webcam feed={this.state.feed} />
         <Terminal postCode={this.postCode} />
         <Console />
-        <Webcam feed={this.state.feed} />
       </div >
     );
   }
