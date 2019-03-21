@@ -8,13 +8,16 @@ import Webcam from './components/Webcam/Webcam'
 import io from 'socket.io-client'
 
 const socket = io.connect('http://localhost:8088')
+
 const codeURL = "http://localhost:8088/codeAPI"
+const terminateURL = "http://localhost:8088/terminate"
 
 class App extends Component {
   state = {
     currentFileName: '',
     currentCode: {},
-    currentFileID: {},
+    currentID: {},
+    currentPID: 0,
     fileList: [],
     feed: ``
   }
@@ -38,12 +41,14 @@ class App extends Component {
         currentFile: file,
         currentCode: code
       })
-      .then(response => {
-        const { currentFile, currentCode } = response.data
+      .then(({ data }) => {
         this.setState({
-          currentFile,
-          currentCode
-        })
+          fileList: data.data,
+          currentFileName: data.fileObject.fileName,
+          currentCode: data.fileObject.fileContents,
+          currentID: data.fileObject.ID,
+          currentPID: data.fileObject.PID
+        }, () => console.log(this.state))
       })
       .catch((err) => {
         console.log(err)
@@ -51,14 +56,29 @@ class App extends Component {
 
   }
 
-
-  componentDidMount() {
-    this.retrieveFiles()
+  listenForImage = () => {
     socket.on('image', (image) => {
       this.setState({
         feed: `data:image/jpeg;base64,${image}`
       })
     })
+  }
+
+  terminateProcess = (pid) => {
+    axios
+      .post(terminateURL, {
+        thePID: pid
+      })
+      .then(response => {
+        console.log(response)
+      })
+
+  }
+
+
+  componentDidMount() {
+    this.retrieveFiles()
+    this.listenForImage()
   }
 
   componentDidUpdate() {
@@ -69,18 +89,12 @@ class App extends Component {
 
   render() {
 
-    // socket.on('image', (image) => {
-    //   this.setState({
-    //     feed: `data:image/jpeg;base64,${image}`
-    //   })
-    // })
-
     return (
       <div className="App">
         <FileSystem fileList={this.state.fileList} />
         <Webcam feed={this.state.feed} />
         <Terminal postCode={this.postCode} />
-        <Console />
+        <Console terminateProcess={this.terminateProcess} PID={this.state.currentPID} />
       </div >
     );
   }

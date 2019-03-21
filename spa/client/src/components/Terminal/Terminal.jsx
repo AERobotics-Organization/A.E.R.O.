@@ -15,7 +15,6 @@ class Terminal extends Component {
   compileJ5 = () => {
     console.log("Compiling johnny5...")
     this.props.postCode(this.fileInput.value, this.codeInput.value)
-
   }
 
   componentDidMount() {

@@ -1,3 +1,9 @@
+.console__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .console__container .console__form {
   font-size: 14px;
   background-color: black;
@@ -8,5 +14,18 @@
   border-radius: 4px;
   margin: 55px 0px 0px 45px;
   outline-width: 0;
+}
+
+.console__container .terminate__button {
+  height: 48px;
+  width: 100px;
+  border-radius: 4px;
+  outline-width: 0;
+  background-color: red;
+  color: black;
+  border: 1px solid black;
+  font-size: 15px;
+  margin: 90px 0px 0px 25px;
+  bottom: 0;
 }
 /*# sourceMappingURL=console.css.map */
