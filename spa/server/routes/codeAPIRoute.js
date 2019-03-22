@@ -6,6 +6,9 @@ const shortid = require('shortid')
 let data = require('../data/fileData.json')
 const { spawn } = require('child_process')
 let PID
+//let output = ''
+let errors = []
+let commandLine = []
 
 codeRouter.use(bodyParser.json())
 codeRouter.use(bodyParser.urlencoded({ extended: false }))
@@ -30,9 +33,11 @@ codeRouter
     nodeSpawn.stdout.on('data', (data) => {
       console.log("OUTPUT", data.toString())
       console.log("PID:: ", nodeSpawn.pid)
+      commandLine.push(data.toString())
     })
     nodeSpawn.stderr.on('data', (data) => {
       console.log("ERRORS", data.toString())
+      commandLine.push(data.toString())
     })
     nodeSpawn.on('exit', (code) => {
       console.log(`Child exited with code ${code}`)
@@ -58,10 +63,18 @@ codeRouter
       if (err) throw err
     })
 
-    res.json({
-      data,
-      fileObject
-    })
+    // res.json({
+    //   data,
+    //   fileObject,
+    //   commandLine
+    // })
+    setTimeout(() => {
+      res.json({
+        data,
+        fileObject,
+        commandLine
+      })
+    }, 1000)
 
 
   })

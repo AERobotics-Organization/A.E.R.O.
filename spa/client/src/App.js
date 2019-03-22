@@ -19,7 +19,8 @@ class App extends Component {
     currentID: {},
     currentPID: 0,
     fileList: [],
-    feed: ``
+    feed: ``,
+    commandLine: []
   }
 
   retrieveFiles = () => {
@@ -42,12 +43,14 @@ class App extends Component {
         currentCode: code
       })
       .then(({ data }) => {
+        console.log(data)
         this.setState({
           fileList: data.data,
           currentFileName: data.fileObject.fileName,
           currentCode: data.fileObject.fileContents,
           currentID: data.fileObject.ID,
-          currentPID: data.fileObject.PID
+          currentPID: data.fileObject.PID,
+          commandLine: data.commandLine
         }, () => console.log(this.state))
       })
       .catch((err) => {
@@ -94,7 +97,7 @@ class App extends Component {
         <FileSystem fileList={this.state.fileList} />
         <Webcam feed={this.state.feed} />
         <Terminal postCode={this.postCode} />
-        <Console terminateProcess={this.terminateProcess} PID={this.state.currentPID} />
+        <Console terminateProcess={this.terminateProcess} PID={this.state.currentPID} commandLine={this.state.commandLine} />
       </div >
     );
   }
