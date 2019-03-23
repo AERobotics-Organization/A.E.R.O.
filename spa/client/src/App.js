@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import './App.css';
-import FileSystem from './components/FileSystem/FileSystem'
-import Terminal from './components/Terminal/Terminal'
-import Console from './components/Console/Console'
-import Webcam from './components/Webcam/Webcam'
+import { Switch, Route } from 'react-router-dom'
+// import FileSystem from './components/FileSystem/FileSystem'
+// import Terminal from './components/Terminal/Terminal'
+// import Console from './components/Console/Console'
+// import Webcam from './components/Webcam/Webcam'
+import Site from './Site'
 import io from 'socket.io-client'
 
 const socket = io.connect('http://localhost:8088')
@@ -94,10 +96,36 @@ class App extends Component {
 
     return (
       <div className="App">
-        <FileSystem fileList={this.state.fileList} />
+        {/* <FileSystem fileList={this.state.fileList} />
         <Webcam feed={this.state.feed} />
         <Terminal postCode={this.postCode} />
-        <Console terminateProcess={this.terminateProcess} PID={this.state.currentPID} commandLine={this.state.commandLine} />
+        <Console terminateProcess={this.terminateProcess} PID={this.state.currentPID} commandLine={this.state.commandLine} /> */}
+        <Switch>
+          <Route exact path='/'
+            render={(routeProps) =>
+              (<Site {...routeProps}
+                fileList={this.state.fileList}
+                feed={this.state.feed}
+                postCode={this.postCode}
+                terminateProcess={this.terminateProcess}
+                PID={this.state.currentPID}
+                commandLine={this.state.commandLine}
+              />)
+            }
+          />
+          <Route path="/:id"
+            render={(routeProps) =>
+              (<Site {...routeProps}
+                fileList={this.state.fileList}
+                feed={this.state.feed}
+                postCode={this.postCode}
+                terminateProcess={this.terminateProcess}
+                PID={this.state.currentPID}
+                commandLine={this.state.commandLine}
+              />)
+            }
+          />
+        </Switch>
       </div >
     );
   }
