@@ -18,21 +18,26 @@ class Terminal extends Component {
   }
 
 
-  loadFile = () => {
-    let { fileList, query } = this.props
-    let currFile = fileList.find(file => {
-      return file.ID = query
-    })
-    this.fileInput.value = currFile.fileName
-    this.codeInput.value = currFile.fileContents
+  loadFile = (query) => {
+    if (query === undefined) return
+    else {
+      let { fileList } = this.props
+      let currFile = fileList.find(file => {
+        return file.ID === query
+      })
+      this.fileInput.value = currFile.fileName
+      this.codeInput.value = currFile.fileContents
+    }
   }
 
   componentDidMount() {
 
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     console.log('update')
+    console.log(this.props)
+    this.loadFile(this.props.query)
   }
 
   shouldComponentUpdate(nextProps) {
