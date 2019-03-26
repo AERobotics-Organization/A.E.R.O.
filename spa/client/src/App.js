@@ -59,6 +59,10 @@ class App extends Component {
         console.log(err)
       })
 
+    setTimeout(() => {
+      this.retrieveFiles()
+    }, 1000)
+
   }
 
   listenForImage = () => {
@@ -80,13 +84,13 @@ class App extends Component {
 
   }
 
-  loadFile = (query, file, code) => {
-    let currFile = this.state.fileList.find(f => {
-      return f.ID = query
-    })
-    file = currFile.fileName
-    code = currFile.fileContents
-  }
+  // loadFile = (query, file, code) => {
+  //   let currFile = this.state.fileList.find(f => {
+  //     return f.ID = query
+  //   })
+  //   file = currFile.fileName
+  //   code = currFile.fileContents
+  // }
 
 
   componentDidMount() {
@@ -95,7 +99,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-
+    //this.retrieveFiles()
   }
 
 
@@ -117,7 +121,7 @@ class App extends Component {
                 terminateProcess={this.terminateProcess}
                 PID={this.state.currentPID}
                 commandLine={this.state.commandLine}
-                loadFile={this.loadFile}
+              //loadFile={this.loadFile}
               />)
             }
           />
@@ -130,7 +134,7 @@ class App extends Component {
                 terminateProcess={this.terminateProcess}
                 PID={this.state.currentPID}
                 commandLine={this.state.commandLine}
-                loadFile={this.loadFile}
+              //loadFile={this.loadFile}
               />)
             }
           />

@@ -5,6 +5,15 @@ import { Link } from 'react-router-dom'
 import addFileIcon from '../../assets/icons/icon-addFile.svg'
 
 class FileSystem extends Component {
+
+  componentDidUpdate() {
+    console.log('FS UPDATE')
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.fileList !== this.props.fileList
+  }
+
   render() {
 
     let fileList = this.props.fileList.map(file => {
@@ -15,7 +24,6 @@ class FileSystem extends Component {
         </Link>
       )
     })
-
 
     return (
       <div className="fileSystem__container">

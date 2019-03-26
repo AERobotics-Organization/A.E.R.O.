@@ -4,7 +4,7 @@ import './console.css'
 class Console extends Component {
 
   componentDidUpdate() {
-    document.querySelector('.console__form').value = `${this.props.commandLine} \n`
+    document.querySelector('.console__form').value = `${this.props.commandLine.join("")} \n`
   }
 
   render() {

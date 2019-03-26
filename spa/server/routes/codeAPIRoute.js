@@ -23,6 +23,9 @@ codeRouter
     console.log(req.body)
     let { currentFile, currentCode } = req.body
     let fileName = `johnnyFiles/${currentFile}`
+    fs.writeFileSync(fileName, currentCode, (err) => {
+      if (err) throw err
+    })
     let nodeSpawn = spawn('node', [fileName], {
       //detached: true,
       shell: true
@@ -34,7 +37,8 @@ codeRouter
       console.log("OUTPUT", data.toString())
       console.log("PID:: ", nodeSpawn.pid)
       commandLine.push(data.toString())
-      //commandLine.push('\n')
+      commandLine.push('\n')
+      console.log("COMMAND:: ", commandLine)
     })
     nodeSpawn.stderr.on('data', (data) => {
       console.log("ERRORS", data.toString())
@@ -45,10 +49,6 @@ codeRouter
     })
 
     ///////////////////////////////////
-
-    fs.writeFileSync(fileName, currentCode, (err) => {
-      if (err) throw err
-    })
     let id = shortid.generate()
     let fileObject = {
       fileName: currentFile,
@@ -69,6 +69,7 @@ codeRouter
     //   fileObject,
     //   commandLine
     // })
+
     setTimeout(() => {
       res.json({
         data,
