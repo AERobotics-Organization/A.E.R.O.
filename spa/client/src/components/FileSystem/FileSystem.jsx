@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
 import File from './File'
 import './fileSystem.css'
+import { Link } from 'react-router-dom'
 import addFileIcon from '../../assets/icons/icon-addFile.svg'
 
 class FileSystem extends Component {
   render() {
 
     let fileList = this.props.fileList.map(file => {
+      let link = "/script/" + file.ID
       return (
-        <File {...file} />
+        <Link to={link} style={{ textDecoration: 'none' }}>
+          <File {...file} />
+        </Link>
       )
     })
 
@@ -17,7 +21,9 @@ class FileSystem extends Component {
       <div className="fileSystem__container">
         <p>Files</p>
         <div className="addFile__container">
-          <img className="addFile" src={addFileIcon}></img>
+          <Link to="/">
+            <img className="addFile" src={addFileIcon}></img>
+          </Link>
         </div>
         <div className="fileList__container">
           {fileList}

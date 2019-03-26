@@ -53,7 +53,7 @@ class App extends Component {
           currentID: data.fileObject.ID,
           currentPID: data.fileObject.PID,
           commandLine: data.commandLine
-        }, () => console.log(this.state))
+        }, () => console.log("STATE: ", this.state))
       })
       .catch((err) => {
         console.log(err)
@@ -80,10 +80,18 @@ class App extends Component {
 
   }
 
+  loadFile = (query, file, code) => {
+    let currFile = this.state.fileList.find(f => {
+      return f.ID = query
+    })
+    file = currFile.fileName
+    code = currFile.fileContents
+  }
+
 
   componentDidMount() {
-    this.retrieveFiles()
     this.listenForImage()
+    this.retrieveFiles()
   }
 
   componentDidUpdate() {
@@ -93,7 +101,6 @@ class App extends Component {
 
 
   render() {
-
     return (
       <div className="App">
         {/* <FileSystem fileList={this.state.fileList} />
@@ -110,10 +117,11 @@ class App extends Component {
                 terminateProcess={this.terminateProcess}
                 PID={this.state.currentPID}
                 commandLine={this.state.commandLine}
+                loadFile={this.loadFile}
               />)
             }
           />
-          <Route path="/:id"
+          <Route path="/script/:id"
             render={(routeProps) =>
               (<Site {...routeProps}
                 fileList={this.state.fileList}
@@ -122,6 +130,7 @@ class App extends Component {
                 terminateProcess={this.terminateProcess}
                 PID={this.state.currentPID}
                 commandLine={this.state.commandLine}
+                loadFile={this.loadFile}
               />)
             }
           />

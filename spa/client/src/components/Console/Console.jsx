@@ -5,9 +5,8 @@ class Console extends Component {
 
   componentDidUpdate() {
     document.querySelector('.console__form').value = `${this.props.commandLine} \n`
-    console.log(this.props.commandLine)
-    console.log("test")
   }
+
   render() {
     return (
       <div className="console__container">

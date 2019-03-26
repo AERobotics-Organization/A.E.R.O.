@@ -34,6 +34,7 @@ codeRouter
       console.log("OUTPUT", data.toString())
       console.log("PID:: ", nodeSpawn.pid)
       commandLine.push(data.toString())
+      //commandLine.push('\n')
     })
     nodeSpawn.stderr.on('data', (data) => {
       console.log("ERRORS", data.toString())

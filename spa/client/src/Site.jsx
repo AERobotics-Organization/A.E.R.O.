@@ -10,8 +10,8 @@ class Site extends Component {
       <div>
         <FileSystem fileList={this.props.fileList} />
         <Webcam feed={this.props.feed} />
-        <Terminal postCode={this.props.postCode} />
-        <Console terminateProcess={this.props.terminateProcess} PID={this.props.currentPID} commandLine={this.props.commandLine} />
+        <Terminal postCode={this.props.postCode} fileList={this.props.fileList} query={this.props.match.params.id} loadFile={this.props.loadFile} />
+        <Console terminateProcess={this.props.terminateProcess} PID={this.props.PID} commandLine={this.props.commandLine} />
       </div>
     )
   }

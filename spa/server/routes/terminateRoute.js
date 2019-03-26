@@ -5,9 +5,10 @@ const { spawn } = require('child_process')
 terminateRouter
   .post('/terminate', (req, res) => {
     let { thePID } = req.body
-    let terminateSpawn = spawn('kill', [thePID], {
-      shell: true
-    })
+    // let terminateSpawn = spawn('kill', [thePID], {
+    //   shell: true
+    // })
+    let terminateSpawn = spawn('kill', [thePID])
 
     terminateSpawn.stdout.on('data', (data) => {
       console.log("OUTPUT", data.toString())

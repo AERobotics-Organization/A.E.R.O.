@@ -17,10 +17,27 @@ class Terminal extends Component {
     this.props.postCode(this.fileInput.value, this.codeInput.value)
   }
 
+
+  loadFile = () => {
+    let { fileList, query } = this.props
+    let currFile = fileList.find(file => {
+      return file.ID = query
+    })
+    this.fileInput.value = currFile.fileName
+    this.codeInput.value = currFile.fileContents
+  }
+
   componentDidMount() {
 
   }
 
+  componentDidUpdate(prevProps) {
+    console.log('update')
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.query !== this.props.query
+  }
 
   render() {
     return (
@@ -28,7 +45,6 @@ class Terminal extends Component {
         <form className="terminal__form">
           <input className="fileName__text" ref={val => this.fileInput = val} type="text" name="inputBox" placeholder="File Name"></input>
           <textarea className="form__input" ref={el => this.codeInput = el}></textarea>
-
           <button className="form__button" type="button" onClick={() => this.compileJ5()}>COMPILE</button>
         </form>
       </div>
